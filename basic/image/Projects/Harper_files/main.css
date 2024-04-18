@@ -390,7 +390,6 @@ footer {
 h6 {
     margin: 0px;
     padding: 10px;
-    font-weight: bold;
 }
 
 .project .paragraph {
@@ -408,7 +407,7 @@ h6 {
     background-repeat: no-repeat;
 }
 
-#ObjectsInWonderland .thumbnail {
+#ObejctsInWonderland .thumbnail {
     background-image: url("../image//Projects/proj1.png");
 }
 
@@ -475,31 +474,39 @@ h6 {
     aspect-ratio: 1/1;
 }
 
+#Drmarten .attribute:nth-child(0) .circle {
+    left: 90%;
+}
 #Drmarten .attribute:nth-child(1) .circle {
     left: 10%;
 }
+
 #Drmarten .attribute:nth-child(2) .circle {
-    left: 10%;
+    left: 5%;
 }
 
-#Drmarten .attribute:nth-child(3) .circle {
-    left: 80%;
+#ObjectsInWonderland .attribute:nth-child(0) .circle {
+    left: 50%;
 }
-
 #ObjectsInWonderland .attribute:nth-child(1) .circle {
-    left: 70%;
-}
-#ObjectsInWonderland .attribute:nth-child(2) .circle {
-    left: 80%;
-}
-
-#Eight .attribute:nth-child(1) .circle {
-    left: 70%;
-}
-#Eight .attribute:nth-child(2) .circle {
     left: 30%;
 }
 
+#ObjectsInWonderland .attribute:nth-child(2) .circle {
+    left: 20%;
+}
+
+#Eight .attribute:nth-child(0) .circle {
+    left: 90%;
+}
+#Eight .attribute:nth-child(1) .circle {
+    left: 10%;
+}
+
+#Eight .attribute:nth-child(2) .circle {
+    left: 5%;
+}
+  
 .attributes {
     margin-top:20px;
 }
