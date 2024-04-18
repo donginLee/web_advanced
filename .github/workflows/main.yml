@@ -24,4 +24,4 @@ jobs:
           aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
-            ./basic s3://{myfirstbucket-harper}
+            ./basic/ s3://myfirstbucket-harper
