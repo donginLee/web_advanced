@@ -1,27 +1,62 @@
-# S3를 배포해라
+# # S3를 배포해라
+# name: Deploy To S3
+
+# # Main 브랜치에 push 되면 아래 jobs를 돌리겠다.
+# on:
+#   push:
+#     branches: [ main ]
+#   workflow_dispatch:
+# # 기존 마지막 줄에 build가 있는 이유는 build가 폴더 명이라 그랬음^________^ ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: checkout v2
+#         uses: actions/checkout@v2
+
+#       - name: Deploy To S3
+#         env:
+#           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          
+#         run: |
+#           aws s3 cp \
+#             --recursive \
+#             --region ap-northeast-2 \
+#             ./basic/ s3://myfirstbucket-harper
+
 name: Deploy To S3
 
-# Main 브랜치에 push 되면 아래 jobs를 돌리겠다.
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   workflow_dispatch:
-# 기존 마지막 줄에 build가 있는 이유는 build가 폴더 명이라 그랬음^________^ ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout v2
+      - name: Checkout v2
         uses: actions/checkout@v2
+
+      - name: Delete all files in S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 rm s3://myfirstbucket-harper --recursive --region ap-northeast-2
 
       - name: Deploy To S3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          
         run: |
-          aws s3 cp \
-            --recursive \
-            --region ap-northeast-2 \
-            ./basic/ s3://myfirstbucket-harper
+          aws s3 cp --recursive --region ap-northeast-2 ./web/ s3://myfirstbucket-harper
+      - name: Invalidate CloudFront Distribution
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-northeast-2
+        run: aws cloudfront create-invalidation --distribution-id E1MLE7TXGQLLMH --paths "/*"
