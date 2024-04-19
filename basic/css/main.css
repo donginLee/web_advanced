@@ -405,6 +405,7 @@ footer {
     height: 50%;
     background-position: center;
     background-color: gray;
+    transition: 0.3s ease;
 
 }
 
